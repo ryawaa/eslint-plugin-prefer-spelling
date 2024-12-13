@@ -28,7 +28,6 @@ module.exports = {
     create(context) {
         const options = context.options[0] || {};
         const words = options.words || {};
-        const severity = options.severity || "warn";
 
         console.log("Options:", JSON.stringify(options));
         console.log("Words:", JSON.stringify(words));
