@@ -1,51 +1,63 @@
 name: ci
 
 on:
-  push:
-    branches: [ main ]
+    push:
+        branches: [main]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+    build:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
+        strategy:
+            matrix:
+                node-version: [18.x, 20.x]
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm test
-    - name: Run ESLint
-      run: npm run lint
+        steps:
+            - uses: actions/checkout@v3
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - name: Install dependencies
+              run: |
+                  if [ ! -f package-lock.json ]; then
+                    npm install
+                  else
+                    npm ci
+                  fi
+            - run: npm test
+            - name: Run ESLint
+              run: npm run lint
 
-  version-and-publish:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '18.x'
-        registry-url: 'https://registry.npmjs.org'
-    - name: Bump version and push tag
-      id: version_bump
-      uses: phips28/gh-action-bump-version@v10.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag-prefix: 'v'
-        initial-version: '1.0.0'
-    - run: npm ci
-    - name: Publish to npm
-      if: steps.version_bump.outputs.newTag
-      run: npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    version-and-publish:
+        needs: build
+        runs-on: ubuntu-latest
+        if: github.ref == 'refs/heads/main'
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: "18.x"
+                  registry-url: "https://registry.npmjs.org"
+            - name: Install dependencies
+              run: |
+                  if [ ! -f package-lock.json ]; then
+                    npm install
+                  else
+                    npm ci
+                  fi
+            - name: Bump version and push tag
+              id: version_bump
+              uses: phips28/gh-action-bump-version@v10.0.1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  tag-prefix: "v"
+                  initial-version: "1.0.0"
+            - name: Publish to npm
+              if: steps.version_bump.outputs.newTag
+              run: npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
