@@ -1,0 +1,36 @@
+{
+  "name": "eslint-plugin-prefer-spelling",
+  "version": "1.0.0",
+  "description": "eslint plugin to enforce preferred spelling of words",
+  "main": "eslint-plugin-prefer-spelling.js",
+  "scripts": {
+    "test": "node prefer-spelling.test.js"
+  },
+  "author": "ryawaa",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryawaa/eslint-plugin-prefer-spelling.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ryawaa/eslint-plugin-prefer-spelling/issues"
+  },
+  "homepage": "https://github.com/ryawaa/eslint-plugin-prefer-spelling#readme",
+  "devDependencies": {
+    "eslint": "^8.44.0",
+    "semver": "^7.6.3"
+  },
+  "peerDependencies": {
+    "eslint": ">=8.44.0"
+  },
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "spelling",
+    "prefer-spelling"
+  ],
+  "engines": {
+    "node": ">=18.17.1"
+  }
+}
