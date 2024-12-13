@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-prefer-spelling",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "eslint plugin to enforce preferred spelling of words",
   "main": "eslint-plugin-prefer-spelling.js",
   "scripts": {
