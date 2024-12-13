@@ -1,21 +1,9 @@
 const { RuleTester } = require("eslint");
 const preferSpellingRule = require("./prefer-spelling");
-const semver = require("semver");
 
-const eslintVersion = require("eslint/package.json").version;
-
-const ruleOptions = semver.gt(eslintVersion, "8.44.0")
-    ? {
-          languageOptions: {
-              ecmaVersion: 2015,
-              sourceType: "script",
-          },
-      }
-    : {
-          parserOptions: { ecmaVersion: 2015 },
-      };
-
-const ruleTester = new RuleTester(ruleOptions);
+const ruleTester = new RuleTester({
+    parserOptions: { ecmaVersion: 2015 },
+});
 
 ruleTester.run("prefer-spelling", preferSpellingRule, {
     valid: [
