@@ -29,9 +29,6 @@ module.exports = {
         const options = context.options[0] || {};
         const words = options.words || {};
 
-        console.log("Options:", JSON.stringify(options));
-        console.log("Words:", JSON.stringify(words));
-
         const reportedNodes = new Set();
 
         function checkNode(node, value) {
@@ -39,14 +36,11 @@ module.exports = {
                 return;
             }
 
-            console.log("Checking node:", node.type, "Value:", value);
             Object.entries(words).forEach(([incorrect, correct]) => {
                 const regex = new RegExp(`\\b\\w*${incorrect}\\w*\\b`, "gi");
-                console.log("Regex:", regex);
                 const match = regex.exec(value);
                 if (match) {
                     const matchedWord = match[0];
-                    console.log("Match found for:", matchedWord);
                     context.report({
                         node,
                         message: `Use '{{correct}}' instead of '{{incorrect}}'`,
