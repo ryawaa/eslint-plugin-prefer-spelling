@@ -43,7 +43,7 @@ module.exports = {
                     const matchedWord = match[0];
                     context.report({
                         node,
-                        message: `Use '{{correct}}' instead of '{{incorrect}}'`,
+                        message: `Use '{{correct}}' instead of '{{incorrect}}'.`,
                         data: {
                             correct: correct,
                             incorrect: incorrect,
