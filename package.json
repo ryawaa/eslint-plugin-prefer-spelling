@@ -4,7 +4,8 @@
   "description": "eslint plugin to enforce preferred spelling of words",
   "main": "eslint-plugin-prefer-spelling.js",
   "scripts": {
-    "test": "node prefer-spelling.test.js"
+    "test": "node prefer-spelling.test.js",
+    "lint": "eslint ."
   },
   "author": "ryawaa",
   "license": "MIT",
